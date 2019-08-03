@@ -3,28 +3,25 @@ package com.epam.chef.action;
 import com.epam.chef.entity.Ingredient;
 import com.epam.chef.entity.Salad;
 import com.epam.chef.exception.EmptySaladException;
-import com.sun.tools.javac.util.List;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 public class SaladActionTest {
     private SaladAction saladAction;
-    private Ingredient chicken;
-    private Ingredient pineapple;
-    private Salad tropicalChichenSalad;
+    private Salad tropicalChickenSalad;
 
     @BeforeClass
     public void setUp() {
         saladAction = new SaladAction();
-        chicken = new Ingredient("roasted chicken", 250, 525, 65, 30, 0);
-        pineapple = new Ingredient("pineapple", 100, 49, 0.4, 0.2, 10.6);
-        tropicalChichenSalad = new Salad(List.of(chicken, pineapple));
+        tropicalChickenSalad = new Salad();
+        tropicalChickenSalad.addAllIngredients(new Ingredient("roasted chicken", 250, 525, 65, 30, 0),
+                new Ingredient("pineapple", 100, 49, 0.4, 0.2, 10.6));
     }
 
     @Test
     public void countWeightTest() throws EmptySaladException {
-        Assert.assertEquals(saladAction.countWeight(tropicalChichenSalad), 250.0 + 100);
+        Assert.assertEquals(saladAction.countWeight(tropicalChickenSalad), 250.0 + 100);
     }
 
     @Test(expectedExceptions = EmptySaladException.class)
@@ -34,7 +31,7 @@ public class SaladActionTest {
 
     @Test
     public void countCalorieAmountTest() throws EmptySaladException {
-        Assert.assertEquals(saladAction.countCalorieAmount(tropicalChichenSalad), 525 + 49);
+        Assert.assertEquals(saladAction.countCalorieAmount(tropicalChickenSalad), 525 + 49);
     }
 
     @Test(expectedExceptions = EmptySaladException.class)
@@ -44,7 +41,7 @@ public class SaladActionTest {
 
     @Test
     public void countProteinAmountTest() throws EmptySaladException {
-        Assert.assertEquals(saladAction.countProteinAmount(tropicalChichenSalad), 65 + 0.4);
+        Assert.assertEquals(saladAction.countProteinAmount(tropicalChickenSalad), 65 + 0.4);
     }
 
     @Test(expectedExceptions = EmptySaladException.class)
@@ -54,7 +51,7 @@ public class SaladActionTest {
 
     @Test
     public void countFatAmountTest() throws EmptySaladException {
-        Assert.assertEquals(saladAction.countFatAmount(tropicalChichenSalad), 30 + 0.2);
+        Assert.assertEquals(saladAction.countFatAmount(tropicalChickenSalad), 30 + 0.2);
     }
 
     @Test(expectedExceptions = EmptySaladException.class)
@@ -64,7 +61,7 @@ public class SaladActionTest {
 
     @Test
     public void countCarbsAmountTest() throws EmptySaladException {
-        Assert.assertEquals(saladAction.countCarbsAmount(tropicalChichenSalad), 0 + 10.6);
+        Assert.assertEquals(saladAction.countCarbsAmount(tropicalChickenSalad), 0 + 10.6);
     }
 
     @Test(expectedExceptions = EmptySaladException.class)

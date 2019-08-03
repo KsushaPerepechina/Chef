@@ -1,5 +1,7 @@
 package com.epam.chef.entity;
 
+import java.util.Objects;
+
 public class Ingredient {
     private String name;
     private double weight;
@@ -77,5 +79,23 @@ public class Ingredient {
                 + "g, protein content=" + proteinAmount
                 + "g, fat content=" + fatAmount
                 + "g, carbs content=" + carbsAmount + "g]";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ingredient that = (Ingredient) o;
+        return Double.compare(that.weight, weight) == 0 &&
+                calorieAmount == that.calorieAmount &&
+                Double.compare(that.proteinAmount, proteinAmount) == 0 &&
+                Double.compare(that.fatAmount, fatAmount) == 0 &&
+                Double.compare(that.carbsAmount, carbsAmount) == 0 &&
+                Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, weight, calorieAmount, proteinAmount, fatAmount, carbsAmount);
     }
 }
