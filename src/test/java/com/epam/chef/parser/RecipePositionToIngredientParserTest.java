@@ -6,25 +6,25 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class RecipeIngredientParserTest {
-    private RecipeIngredientParser recipeIngredientParser;
+public class RecipePositionToIngredientParserTest {
+    private RecipePositionToIngredientParser recipePositionToIngredientParser;
     private String recipePosition;
-    private Ingredient chiaSeeds;
+    private Ingredient ingredient;
 
     @BeforeClass
     public void setUp() {
-        recipeIngredientParser = new RecipeIngredientParser();
+        recipePositionToIngredientParser = new RecipePositionToIngredientParser();
         recipePosition = "chia seeds: 100g|486 kcal|17g prot|31g fat|42g carbs";
-        chiaSeeds = new Ingredient("chia seeds", 100, 486, 17, 31, 42);
+        ingredient = new Ingredient("chia seeds", 100, 486, 17, 31, 42);
     }
 
     @Test
     public void parseTest() throws IngredientParseException {
-        Assert.assertEquals(recipeIngredientParser.parse(recipePosition), chiaSeeds);
+        Assert.assertEquals(recipePositionToIngredientParser.parse(recipePosition), ingredient);
     }
 
     @Test(expectedExceptions = IngredientParseException.class)
     public void parseUnmatchedPositionTest() throws IngredientParseException {
-        recipeIngredientParser.parse(recipePosition + "|0.016g sodium");
+        recipePositionToIngredientParser.parse(recipePosition + "|0.016g sodium");
     }
 }

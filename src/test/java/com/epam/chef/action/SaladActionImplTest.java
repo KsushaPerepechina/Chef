@@ -1,5 +1,6 @@
 package com.epam.chef.action;
 
+import com.epam.chef.action.impl.SaladActionImpl;
 import com.epam.chef.entity.Ingredient;
 import com.epam.chef.entity.Salad;
 import com.epam.chef.exception.EmptySaladException;
@@ -7,13 +8,13 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-public class SaladActionTest {
+public class SaladActionImplTest {
     private SaladAction saladAction;
     private Salad tropicalChickenSalad;
 
     @BeforeClass
     public void setUp() {
-        saladAction = new SaladAction();
+        saladAction = new SaladActionImpl();
         tropicalChickenSalad = new Salad();
         tropicalChickenSalad.addAllIngredients(new Ingredient("roasted chicken", 250, 525, 65, 30, 0),
                 new Ingredient("pineapple", 100, 49, 0.4, 0.2, 10.6));

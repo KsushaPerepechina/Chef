@@ -4,16 +4,14 @@ import com.epam.chef.entity.Ingredient;
 import com.epam.chef.entity.Salad;
 import com.epam.chef.exception.EmptySaladException;
 import com.epam.chef.exception.FilterException;
+import com.epam.chef.filter.impl.IngredientFilterImpl;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class IngredientFilterByWeightRangeTest {
+public class IngredientFilterImplByWeightRangeTest {
     private IngredientFilter ingredientFilter;
     private Ingredient chicken;
     private Ingredient pineapple;
@@ -21,7 +19,7 @@ public class IngredientFilterByWeightRangeTest {
 
     @BeforeClass
     public void setUp() {
-        ingredientFilter = new IngredientFilter();
+        ingredientFilter = new IngredientFilterImpl();
         chicken = new Ingredient("roasted chicken", 250, 525, 65, 30, 0);
         pineapple = new Ingredient("pineapple", 100, 49, 0.4, 0.2, 10.6);
         tropicalChickenSalad = new Salad();

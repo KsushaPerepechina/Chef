@@ -6,8 +6,11 @@ import com.epam.chef.exception.InaccessibleFileException;
 import com.epam.chef.exception.EmptySaladException;
 import com.epam.chef.exception.IngredientParseException;
 import com.epam.chef.filter.IngredientFilter;
-import com.epam.chef.parser.RecipeIngredientParser;
-import com.epam.chef.reader.RecipeReader;
+import com.epam.chef.filter.impl.IngredientFilterImpl;
+import com.epam.chef.parser.IngredientToRecipePositionParser;
+import com.epam.chef.parser.RecipePositionToIngredientParser;
+import com.epam.chef.printer.TextPrinter;
+import com.epam.chef.reader.TextReader;
 import com.epam.chef.validation.RecipePositionValidator;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -19,10 +22,10 @@ public class Runner {
     private static final Logger log = LogManager.getLogger(Runner.class);
 
     public static void main(String[] args) throws EmptySaladException {
-        RecipeReader recipeReader = new RecipeReader();
+        TextReader textReader = new TextReader();
         List<String> recipePositions = new ArrayList<>();
         try {
-            recipePositions = recipeReader.readAllLines("data/caesar_salad.txt");
+            recipePositions = textReader.readAllLines("data/caesar_salad.txt");
         } catch (InaccessibleFileException e) {
             log.error(e.getMessage());
         }
@@ -32,7 +35,7 @@ public class Runner {
         if(recipePositions.isEmpty()) {
             throw new EmptySaladException("Empty ingredients list.");}
 
-        RecipeIngredientParser ingredientParser = new RecipeIngredientParser();
+        RecipePositionToIngredientParser ingredientParser = new RecipePositionToIngredientParser();
         Salad salad = new Salad();
         recipePositions.forEach(recipePosition -> {
             try {
@@ -41,14 +44,22 @@ public class Runner {
                 log.error(e.getMessage());
             }
         });
-        System.out.println(salad);
 
-        IngredientFilter ingredientFilter = new IngredientFilter();
+        IngredientFilter ingredientFilter = new IngredientFilterImpl();
         try {
             ingredientFilter.filterByCalorieAmountRange(salad, 0, 200);
         } catch (FilterException e) {
             log.error(e.getMessage());
         }
-        System.out.println(salad);
+
+        TextPrinter textPrinter = new TextPrinter();
+        IngredientToRecipePositionParser ingredientToRecipePositionParser = new IngredientToRecipePositionParser();
+        salad.getIngredients().forEach(ingredient -> {
+            try {
+                textPrinter.writeString("data/filtered_caesar_salad.txt", ingredientToRecipePositionParser.parse(ingredient) + "\n");
+            } catch (InaccessibleFileException | IngredientParseException e) {
+                log.error(e.getMessage());
+            }
+        });
     }
 }

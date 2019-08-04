@@ -11,11 +11,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class RecipeReader {
-    private static final Logger log = LogManager.getLogger(RecipeReader.class);
+public class TextReader {
+    private static final Logger log = LogManager.getLogger(TextReader.class);
 
     public List<String> readAllLines(final String filePath) throws InaccessibleFileException {
-        List<String> recipeContent = null;
+        List<String> textContent = null;
         TxtFilePathValidator txtFilePathValidator = new TxtFilePathValidator();
         if(!txtFilePathValidator.isCorrect(filePath)) {
             throw new InaccessibleFileException("File path <" + filePath + "> is incorrect.");
@@ -27,10 +27,10 @@ public class RecipeReader {
             throw new InaccessibleFileException("Reading of file <" + filePath + "> is not allowed.");
         }
         try {
-            recipeContent = Files.readAllLines(Paths.get(filePath), StandardCharsets.UTF_8);
+            textContent = Files.readAllLines(Paths.get(filePath), StandardCharsets.UTF_8);
         } catch (IOException e) {
             log.error(e.getMessage());
         }
-        return recipeContent;
+        return textContent;
     }
 }

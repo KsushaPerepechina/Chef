@@ -3,6 +3,7 @@ package com.epam.chef.entity;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class Salad {
     private List<Ingredient> ingredients = new ArrayList<>();
@@ -41,5 +42,18 @@ public class Salad {
     @Override
     public String toString(){
         return "Salad [ingredients=" + ingredients + "]";
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Salad salad = (Salad) o;
+        return Objects.equals(ingredients, salad.ingredients);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ingredients);
     }
 }

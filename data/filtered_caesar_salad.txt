@@ -1,0 +1,4 @@
+romaine lettuce: 100.0g|15 kcal|0.9g prot|0.5g fat|1.7g carbs
+parmesan cheese: 50.0g|200 kcal|17.5g prot|14.5g fat|0.0g carbs
+boiled eggs: 88.0g|136 kcal|11.2g prot|9.3g fat|0.98g carbs
+caesar dressing: 10.0g|55 kcal|8.1g prot|7.5g fat|0.8g carbs
